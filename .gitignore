@@ -48,6 +48,7 @@ data/*.duckdb.wal
 # Dagster storage & runs
 dagster_home/
 .dagster/
+.tmp_dagster_home_*/
 *.dagster_storage/
 
 # IDE & OS files

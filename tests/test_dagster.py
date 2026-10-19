@@ -32,7 +32,11 @@ def test_dagster_definitions_structure():
     assert job.name == "weather_ingestion_job"
 
     # Check schedule
-    schedule = defs.get_schedule_def("hourly_weather_schedule")
+    schedule = (
+        defs.resolve_schedule_def("hourly_weather_schedule")
+        if hasattr(defs, "resolve_schedule_def")
+        else defs.get_schedule_def("hourly_weather_schedule")
+    )
     assert schedule is not None
     assert schedule.cron_schedule == "0 * * * *"
     assert schedule.execution_timezone == "Asia/Kolkata"
