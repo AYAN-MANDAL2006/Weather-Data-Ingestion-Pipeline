@@ -27,7 +27,7 @@ def test_dagster_definitions_structure():
     assert "weather_analytics_report" in asset_keys
 
     # Check job
-    job = defs.get_job_def("weather_ingestion_job")
+    job = defs.resolve_job_def("weather_ingestion_job")
     assert job is not None
     assert job.name == "weather_ingestion_job"
 
@@ -52,6 +52,6 @@ def test_dagster_asset_execution_mocked(mock_open_meteo_payload, tmp_path):
 
 def test_dagster_job_execution_in_process():
     """Execute the complete Dagster weather ingestion job in-process."""
-    job = defs.get_job_def("weather_ingestion_job")
+    job = defs.resolve_job_def("weather_ingestion_job")
     result = job.execute_in_process()
     assert result.success
